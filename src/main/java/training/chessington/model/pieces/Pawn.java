@@ -22,6 +22,14 @@ public class Pawn extends AbstractPiece {
             direction = 1;
         }
 
+
+        if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 0){ // checks if piece is at the end of the board
+            return pawnMoves;
+        } else if (getColour().equals(PlayerColour.BLACK) && from.getRow() == 7){
+            return pawnMoves;
+        }
+
+
         //if piece in front
         Coordinates infront1 = new Coordinates(from.getRow() + (1 * direction), from.getCol());
         Coordinates infront2 = new Coordinates(from.getRow() + (2 * direction), from.getCol());
