@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+    //add castling rights?
+    //add check?
+
     public static final int SIZE = 8;
     private final Board board;
 

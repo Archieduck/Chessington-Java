@@ -49,14 +49,14 @@ public class Pawn extends AbstractPiece {
             if (getColour().equals(PlayerColour.BLACK) && (from.getRow() == 1)) {
 
                 Coordinates moveTo = new Coordinates(from.getRow() + (2 * direction), from.getCol()); //get new coordinate
-                Move two = new Move(from, moveTo); // make new move
-                pawnMoves.add(two);
+                Move to = new Move(from, moveTo); // make new move
+                pawnMoves.add(to);
 
             } else if (getColour().equals(PlayerColour.WHITE) && (from.getRow() == 6)) {
 
                 Coordinates moveTo = new Coordinates(from.getRow() + (2 * direction), from.getCol()); //get new coordinate
-                Move two = new Move(from, moveTo); // make new move
-                pawnMoves.add(two);
+                Move to = new Move(from, moveTo); // make new move
+                pawnMoves.add(to);
             }
         }
 
@@ -69,13 +69,13 @@ public class Pawn extends AbstractPiece {
             pawnMoves.add(to);
         }
 
-
-
+        //add en passant 
 
 
         return pawnMoves;
-        //return new ArrayList<>();
     }
 
+
+    //moveTo function
 
 }

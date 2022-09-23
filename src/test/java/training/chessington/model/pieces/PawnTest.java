@@ -11,6 +11,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PawnTest {
+    //can promote to knight
+    //can promote to queen
+
     @Test
     public void whitePawnCanMoveUpOneSquare() {
         // Arrange
@@ -281,5 +284,61 @@ public class PawnTest {
         assertThat(moves).doesNotContain(new Move(pawnCoords, rookCoords));
         Coordinates otherDiagonal = pawnCoords.plus(1, -1);
         assertThat(moves).doesNotContain(new Move(pawnCoords, otherDiagonal));
+    }
+
+    @Test
+    public void whitePawnCanCaptureEnPassant() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void blackPawnCanCaptureEnPassant() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void whitePawnCantCaptureEnPassantUnlessNextMove() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void blackPawnCantCaptureEnPassantUnlessNextMove() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void whitePawnCanPromoteToQueen() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void blackPawnCanPromoteToQueen() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void whitePawnCanPromoteToKnight() {
+        //Arrange
+        //Act
+        //Assert
+    }
+
+    @Test
+    public void blackPawnCanPromoteToKnight() {
+        //Arrange
+        //Act
+        //Assert
     }
 }
