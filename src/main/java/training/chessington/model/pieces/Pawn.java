@@ -33,6 +33,8 @@ public class Pawn extends AbstractPiece {
         //if piece in front
         Coordinates infront1 = new Coordinates(from.getRow() + (1 * direction), from.getCol());
         Coordinates infront2 = new Coordinates(from.getRow() + (2 * direction), from.getCol());
+        Coordinates diagonalL = new Coordinates(from.getRow() + (1 * direction), from.getCol() - 1);
+        Coordinates diagonalR = new Coordinates(from.getRow() + (1 * direction), from.getCol() + 1);
 
 
         if (board.get(infront1) == null) { // if square 1 infront of pawn is free add move
@@ -58,6 +60,15 @@ public class Pawn extends AbstractPiece {
             }
         }
 
+        if (diagonalL.getCol() >= 0 && board.get(diagonalL) != null && !board.get(diagonalL).getColour().equals(getColour())) { // check if any pieces for the pawn to take and add move
+            Move to = new Move(from, diagonalL);
+            pawnMoves.add(to);
+        }
+        if (diagonalR.getCol() <= 7 && board.get(diagonalR) != null && !board.get(diagonalR).getColour().equals(getColour())) {
+            Move to = new Move(from, diagonalR);
+            pawnMoves.add(to);
+        }
+
 
 
 
@@ -65,4 +76,6 @@ public class Pawn extends AbstractPiece {
         return pawnMoves;
         //return new ArrayList<>();
     }
+
+
 }
