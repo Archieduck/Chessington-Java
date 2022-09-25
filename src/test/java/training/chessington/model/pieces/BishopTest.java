@@ -27,8 +27,8 @@ public class BishopTest {
         //Assert
         assertThat(moves).contains(new Move(coords, coords.plus(-1, -1)));
         assertThat(moves).contains(new Move(coords, coords.plus(3, -3)));
-        assertThat(moves).contains(new Move(coords, coords.plus(3, 2)));
-        assertThat(moves).contains(new Move(coords, coords.plus(1, -3)));
+        assertThat(moves).contains(new Move(coords, coords.plus(2, 2)));
+        assertThat(moves).contains(new Move(coords, coords.plus(-3, 3)));
     }
 
     @Test
@@ -45,8 +45,8 @@ public class BishopTest {
         //Assert
         assertThat(moves).contains(new Move(coords, coords.plus(-1, -1)));
         assertThat(moves).contains(new Move(coords, coords.plus(3, -3)));
-        assertThat(moves).contains(new Move(coords, coords.plus(3, 2)));
-        assertThat(moves).contains(new Move(coords, coords.plus(1, -3)));
+        assertThat(moves).contains(new Move(coords, coords.plus(3, 3)));
+        assertThat(moves).contains(new Move(coords, coords.plus(2, -2)));
     }
 
     @Test

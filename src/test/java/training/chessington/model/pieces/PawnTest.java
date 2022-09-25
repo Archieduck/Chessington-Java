@@ -151,7 +151,7 @@ public class PawnTest {
 
         // Assert
         assertThat(blackMoves).doesNotContain(new Move(blackCoords, blackCoords.plus(2, 0)));
-        assertThat(whiteMoves).doesNotContain(new Move(blackCoords, blackCoords.plus(-2, 0)));
+        assertThat(whiteMoves).doesNotContain(new Move(whiteCoords, whiteCoords.plus(-2, 0)));
     }
 
     @Test
