@@ -301,7 +301,7 @@ public class PawnTest {
         board.move(blackCoords, blackCoords.plus(2, 0));
         List<Move> moves = whitePawn.getAllowedMoves(whiteCoords, board);
 
-        assertThat(moves).contains(new Move(whiteCoords, blackCoords.plus(-1, 0)));
+        assertThat(moves).contains(new Move(whiteCoords, blackCoords.plus(1, 0)));
     }
 
     @Test

@@ -45,25 +45,7 @@ public class Pawn extends AbstractPiece {
         }
 
         if (from.getRow() == endRow + (-3 * direction)){
-            Coordinates left = new Coordinates(from.getRow(), from.getCol() - 1);
-            Coordinates right = new Coordinates(from.getRow(), from.getCol() + 1);
-            Move check;
-
-            if (right.getCol() <= 7 && board.get(right) != null && !board.get(right).getColour().equals(getColour()) && board.get(right).getType().equals(PieceType.PAWN)){
-                check = board.getMostRecentMove();
-                if (check.getTo().getCol() == right.getCol() && check.getTo().getRow() == right.getRow()){
-                    checkAndAddMove(from, board, pawnMoves, direction, -direction);
-                }
-            }
-            if (left.getCol() >= 0 && board.get(left) != null && !board.get(left).getColour().equals(getColour()) && board.get(right).getType().equals(PieceType.PAWN)){
-                check = board.getMostRecentMove();
-                if (check.getTo().getCol() == right.getCol() && check.getTo().getRow() == right.getRow()){
-                    checkAndAddMove(from, board, pawnMoves, direction, -direction);
-                }
-            }
-
-
-
+            enPassant(board, pawnMoves, from, direction);
         }
 
         //add promotion
@@ -98,6 +80,26 @@ public class Pawn extends AbstractPiece {
 
     public void pawnPromotion(Board board, List pawnMoves) {
 
+    }
+
+    public void enPassant(Board board, List pawnMoves, Coordinates from, int direction){
+
+        Coordinates left = new Coordinates(from.getRow(), from.getCol() - 1);
+        Coordinates right = new Coordinates(from.getRow(), from.getCol() + 1);
+        Move check;
+
+        if (right.getCol() <= 7 && board.get(right) != null && !board.get(right).getColour().equals(getColour()) && board.get(right).getType().equals(PieceType.PAWN)){
+            check = board.getMostRecentMove();
+            if (check.getTo().getCol() == right.getCol() && check.getTo().getRow() == right.getRow()){
+                checkAndAddMove(from, board, pawnMoves, direction, 1);
+            }
+        }
+        if (left.getCol() >= 0 && board.get(left) != null && !board.get(left).getColour().equals(getColour()) && board.get(left).getType().equals(PieceType.PAWN)){
+            check = board.getMostRecentMove();
+            if (check.getTo().getCol() == left.getCol() && check.getTo().getRow() == left.getRow()){
+                checkAndAddMove(from, board, pawnMoves, direction, -1);
+            }
+        }
     }
 
 
