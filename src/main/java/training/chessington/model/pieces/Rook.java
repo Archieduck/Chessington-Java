@@ -15,6 +15,28 @@ public class Rook extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return new ArrayList<>();
+        ArrayList<Move> rookMoves = new ArrayList<Move>();
+
+
+
+
+
+
+        return rookMoves;
     }
+
+
+
+    public List<Move> addMove(List<Move> rookMoves, Coordinates from, Coordinates currentCheckSquare) {//needs move too (from, to)
+        Move to = new Move(from, currentCheckSquare);
+        rookMoves.add(to);
+
+        return rookMoves;
+    }
+
+//    public Boolean checkSquareIsAvailable(Board board, Coordinates currentCheckSquare) {
+//
+//        return board.get(currentCheckSquare) != null && !board.get(currentCheckSquare).getColour().equals(getColour()) || board.get(currentCheckSquare) == null;
+//    }
 }
+

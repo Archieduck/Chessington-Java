@@ -27,7 +27,7 @@ public class Bishop extends AbstractPiece {
                     checkSquare = new Coordinates(from.getRow(), from.getCol());
                     do {
                         checkSquare = checkSquare.plus(rowChanger, colChanger);
-                        if (checkSquare.getRow() > 7 || checkSquare.getCol() > 7 || checkSquare.getRow() < 0 || checkSquare.getCol() < 0) {
+                        if (checkSquare.getRow() > 7 || checkSquare.getCol() > 7 || checkSquare.getRow() < 0 || checkSquare.getCol() < 0) { //if its over the edge dont bother
                             break;
                         }
                         if (checkSquare.getCol() >= 0 && checkSquare.getRow() >= 0 && checkSquare.getCol() <= 7 && checkSquare.getRow() <= 7) { //check square still on board
