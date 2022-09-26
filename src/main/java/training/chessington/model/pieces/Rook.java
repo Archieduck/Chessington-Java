@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rook extends AbstractPiece {
+    private boolean hasMoved = false;
     public Rook(PlayerColour colour) {
         super(PieceType.ROOK, colour);
     }
+
+    public boolean getHasMoved() {return hasMoved;}
+    public void setHasMoved() {this.hasMoved = true;}
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
@@ -59,5 +63,7 @@ public class Rook extends AbstractPiece {
             }
         } while (checkSquareIsAvailable(board, checkSquare));
     }
+
+
 }
 

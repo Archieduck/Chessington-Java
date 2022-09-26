@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    //add castling rights?
     //add check?
 
     public static final int SIZE = 8;
@@ -57,9 +56,9 @@ public class Game {
         if (!piece.getAllowedMoves(move.getFrom(), board).contains(move)) {
             throw new InvalidMoveException(String.format("Cannot move piece %s from %s to %s", piece, from, to));
         }
-
         board.move(from, to);
         nextPlayer = nextPlayer == PlayerColour.WHITE ? PlayerColour.BLACK : PlayerColour.WHITE;
+        board.get(from).setHasMoved();
     }
 
     public boolean isEnded() {

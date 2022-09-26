@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends AbstractPiece {
+    boolean hasMoved = false;
     public Bishop(PlayerColour colour) {
         super(PieceType.BISHOP, colour);
     }
+
+    public boolean getHasMoved() {return hasMoved;}
+    public void setHasMoved() {this.hasMoved = true;}
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {

@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Queen extends AbstractPiece {
+    boolean hasMoved = false;
     public Queen(PlayerColour colour) {
         super(PieceType.QUEEN, colour);
     }
+    public boolean getHasMoved() {return hasMoved;}
+    public void setHasMoved() {this.hasMoved = true;}
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {

@@ -48,6 +48,7 @@ public class Board {
         board[to.getRow()][to.getCol()] = board[from.getRow()][from.getCol()];
         board[from.getRow()][from.getCol()] = null;
         mostRecentMove = new Move(from, to);
+
     }
 
     public void placePiece(Coordinates coords, Piece piece) {

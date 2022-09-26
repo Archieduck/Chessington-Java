@@ -8,6 +8,7 @@ import training.chessington.model.PlayerColour;
 import java.util.List;
 
 public interface Piece {
+    boolean hasMoved = false;
     enum PieceType {
         PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
     }
@@ -17,5 +18,9 @@ public interface Piece {
 
     List<Move> getAllowedMoves(Coordinates from, Board board);
 
-    //move history
+    boolean getHasMoved();
+
+    void setHasMoved();
+
+
 }

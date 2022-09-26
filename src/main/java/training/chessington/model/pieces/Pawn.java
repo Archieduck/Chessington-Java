@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends AbstractPiece {
+    boolean hasMoved = false;
     public Pawn(PlayerColour colour) {
         super(Piece.PieceType.PAWN, colour);
     }
+    public boolean getHasMoved() {return hasMoved;}
+    public void setHasMoved() {this.hasMoved = true;}
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
