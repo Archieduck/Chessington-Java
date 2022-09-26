@@ -42,12 +42,12 @@ public class Bishop extends AbstractPiece {
 
                         }
 
-                    } while (checkSquare.getCol() != 0 && checkSquare.getCol() != 7 && checkSquare.getRow() != 0 && checkSquare.getRow() != 7);
+                    } while (checkSquare.getCol() != 0 && checkSquare.getCol() != 7 && checkSquare.getRow() != 0 && checkSquare.getRow() != 7); // stopping at the end of the board
 
                     colChanger = -1;
                     i += 1;
 
-                } while (i != 2 && i != 4);
+                } while (i != 2 && i != 4); //2 loops for both col changes per row
                 rowChanger = -1;
 
             } while (i < 4);

@@ -16,11 +16,7 @@ public class Pawn extends AbstractPiece {
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> pawnMoves = new ArrayList<Move>();
-
-        int direction = -1; //initialise direction for white
-        if (getColour().equals(PlayerColour.BLACK)) {//change direction for black
-            direction = 1;
-        }
+        int direction = getColour().equals(PlayerColour.BLACK) ? 1 : -1; // select direction
 
 
         if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 0){ // checks if piece is at the end of the board
@@ -69,13 +65,14 @@ public class Pawn extends AbstractPiece {
             pawnMoves.add(to);
         }
 
-        //add en passant 
+        //add en passant
+
+        //add promotion
 
 
         return pawnMoves;
     }
 
 
-    //moveTo function
 
 }
