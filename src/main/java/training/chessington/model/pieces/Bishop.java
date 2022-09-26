@@ -19,38 +19,10 @@ public class Bishop extends AbstractPiece {
         int rowChanger = 1;
         int i = 0;
 
-            Coordinates checkSquare = new Coordinates(from.getRow(), from.getCol());
-            do { // for rows going up OR down
-                int colChanger = 1; // resets colChanger
-                do { //for cols going up OR down
-
-                    checkSquare = new Coordinates(from.getRow(), from.getCol());
-                    do {
-                        checkSquare = checkSquare.plus(rowChanger, colChanger);
-                        if (checkSquare.getRow() > 7 || checkSquare.getCol() > 7 || checkSquare.getRow() < 0 || checkSquare.getCol() < 0) { //if its over the edge dont bother
-                            break;
-                        }
-                        if (checkSquare.getCol() >= 0 && checkSquare.getRow() >= 0 && checkSquare.getCol() <= 7 && checkSquare.getRow() <= 7) { //check square still on board
-                            if (checkSquareIsAvailable(board, checkSquare)) {
-                                addMove(bishopMoves, from, checkSquare);
-                                if (board.get(checkSquare) != null && !board.get(checkSquare).getColour().equals(getColour())){ //if opposite coloured piece
-                                    break;
-                                }
-                            } else if (!checkSquareIsAvailable(board, checkSquare)) { //same coloured piece
-                                break;
-                            }
-
-                        }
-
-                    } while (checkSquare.getCol() != 0 && checkSquare.getCol() != 7 && checkSquare.getRow() != 0 && checkSquare.getRow() != 7); // stopping at the end of the board
-
-                    colChanger = -1;
-                    i += 1;
-
-                } while (i != 2 && i != 4); //2 loops for both col changes per row
-                rowChanger = -1;
-
-            } while (i < 4);
+        checkAndAddMove(from, board, bishopMoves, 1, 1);
+        checkAndAddMove(from, board, bishopMoves, -1, -1);
+        checkAndAddMove(from, board, bishopMoves, -1, 1);
+        checkAndAddMove(from, board, bishopMoves, 1, -1);
 
         return bishopMoves;
     }
@@ -62,9 +34,27 @@ public class Bishop extends AbstractPiece {
         return bishopMoves;
     }
 
-    public Boolean checkSquareIsAvailable(Board board, Coordinates currentCheckSquare) {
+    public Boolean checkSquareIsAvailable(Board board, Coordinates checkSquare) {
 
-        return board.get(currentCheckSquare) != null && !board.get(currentCheckSquare).getColour().equals(getColour()) || board.get(currentCheckSquare) == null;
+        if (checkSquare.getCol() >= 0 && checkSquare.getRow() >= 0 && checkSquare.getCol() <= 7 && checkSquare.getRow() <= 7) { //check square is on board
+            return board.get(checkSquare) != null && !board.get(checkSquare).getColour().equals(getColour()) || board.get(checkSquare) == null; //check square is empty or has enemy piece
+        }
+        else return false;
+    }
+
+    public void checkAndAddMove(Coordinates from, Board board, List bishopMoves, int rowDiff, int colDiff) {
+        Coordinates checkSquare = (from);
+        do {
+            checkSquare = checkSquare.plus(rowDiff, colDiff);
+            if (checkSquareIsAvailable(board, checkSquare)) {
+                addMove(bishopMoves, from, checkSquare);
+                if (board.get(checkSquare) != null && !board.get(checkSquare).getColour().equals(getColour())){ //if opposite coloured piece
+                    break;
+                }
+            } else {
+                break;
+            }
+        } while (checkSquareIsAvailable(board, checkSquare));
     }
 }
 

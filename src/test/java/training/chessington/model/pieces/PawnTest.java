@@ -288,16 +288,38 @@ public class PawnTest {
 
     @Test
     public void whitePawnCanCaptureEnPassant() {
-        //Arrange
-        //Act
-        //Assert
+        Board board = Board.empty();
+
+        Piece blackPawn = new Pawn(PlayerColour.BLACK);
+        Coordinates blackCoords = new Coordinates(1, 0);
+        board.placePiece(blackCoords, blackPawn);
+
+        Piece whitePawn = new Pawn(PlayerColour.WHITE);
+        Coordinates whiteCoords = new Coordinates(3, 1);
+        board.placePiece(whiteCoords, whitePawn);
+
+        board.move(blackCoords, blackCoords.plus(2, 0));
+        List<Move> moves = whitePawn.getAllowedMoves(whiteCoords, board);
+
+        assertThat(moves).contains(new Move(whiteCoords, blackCoords.plus(-1, 0)));
     }
 
     @Test
     public void blackPawnCanCaptureEnPassant() {
-        //Arrange
-        //Act
-        //Assert
+        Board board = Board.empty();
+
+        Piece blackPawn = new Pawn(PlayerColour.BLACK);
+        Coordinates blackCoords = new Coordinates(4, 0);
+        board.placePiece(blackCoords, blackPawn);
+
+        Piece whitePawn = new Pawn(PlayerColour.WHITE);
+        Coordinates whiteCoords = new Coordinates(6, 1);
+        board.placePiece(whiteCoords, whitePawn);
+
+        board.move(whiteCoords, whiteCoords.plus(-2, 0));
+        List<Move> moves = blackPawn.getAllowedMoves(blackCoords, board);
+
+        assertThat(moves).contains(new Move(blackCoords, whiteCoords.plus(-1, 0)));
     }
 
     @Test

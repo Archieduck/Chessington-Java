@@ -61,7 +61,7 @@ public class RookTest {
         Board board = Board.empty();
 
         Piece rook = new Rook(PlayerColour.WHITE);
-        Coordinates rookCoords = new Coordinates(4, 0);
+        Coordinates rookCoords = new Coordinates(4, 4);
         board.placePiece(rookCoords, rook);
 
         //Act
@@ -81,7 +81,7 @@ public class RookTest {
         Board board = Board.empty();
 
         Piece rook = new Rook(PlayerColour.BLACK);
-        Coordinates rookCoords = new Coordinates(4, 0);
+        Coordinates rookCoords = new Coordinates(4, 4);
         board.placePiece(rookCoords, rook);
 
         //Act
@@ -106,7 +106,7 @@ public class RookTest {
 
         Piece pawn = new Pawn(PlayerColour.BLACK);
         Coordinates pawnCoords = new Coordinates(3, 0);
-        board.placePiece(pawnCoords, rook);
+        board.placePiece(pawnCoords, pawn);
         Piece pawn2 = new Pawn(PlayerColour.BLACK);
         Coordinates pawn2Coords = new Coordinates(4, 4);
         board.placePiece(pawn2Coords, pawn2);

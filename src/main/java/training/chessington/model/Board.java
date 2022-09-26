@@ -6,6 +6,8 @@ public class Board {
 
     private Piece[][] board = new Piece[8][8];
 
+    private Move mostRecentMove;
+
     private Board() {
     }
 
@@ -42,11 +44,17 @@ public class Board {
     }
 
     public void move(Coordinates from, Coordinates to) {
+
         board[to.getRow()][to.getCol()] = board[from.getRow()][from.getCol()];
         board[from.getRow()][from.getCol()] = null;
+        mostRecentMove = new Move(from, to);
     }
 
     public void placePiece(Coordinates coords, Piece piece) {
         board[coords.getRow()][coords.getCol()] = piece;
+    }
+
+    public Move getMostRecentMove(){
+        return mostRecentMove;
     }
 }

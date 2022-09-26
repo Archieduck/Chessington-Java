@@ -17,60 +17,87 @@ public class Pawn extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> pawnMoves = new ArrayList<Move>();
         int direction = getColour().equals(PlayerColour.BLACK) ? 1 : -1; // select direction
+        int startRow = getColour().equals(PlayerColour.BLACK) ? 1 : 6;
+        int endRow = getColour().equals(PlayerColour.BLACK) ? 7 : 0;
 
 
-        if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 0){ // checks if piece is at the end of the board
-            return pawnMoves;
-        } else if (getColour().equals(PlayerColour.BLACK) && from.getRow() == 7){
+        if (from.getRow() == endRow){
             return pawnMoves;
         }
 
+        checkAndAddMove(from, board, pawnMoves, direction, 0);
 
-        //if piece in front
-        Coordinates infront1 = new Coordinates(from.getRow() + (1 * direction), from.getCol());
-        Coordinates infront2 = new Coordinates(from.getRow() + (2 * direction), from.getCol());
-        Coordinates diagonalL = new Coordinates(from.getRow() + (1 * direction), from.getCol() - 1);
-        Coordinates diagonalR = new Coordinates(from.getRow() + (1 * direction), from.getCol() + 1);
-
-
-        if (board.get(infront1) == null) { // if square 1 infront of pawn is free add move
-
-            Coordinates moveTo = new Coordinates(from.getRow() + (1 * direction), from.getCol()); //get new coordinate
-            Move to = new Move(from, moveTo); // make new move
-            pawnMoves.add(to); //add move to list
-
-        }
-        if (board.get(infront1) == null && board.get(infront2) == null) { // if square 1 & 2 infront of pawn is free do move 2 logic
-
-            if (getColour().equals(PlayerColour.BLACK) && (from.getRow() == 1)) {
-
-                Coordinates moveTo = new Coordinates(from.getRow() + (2 * direction), from.getCol()); //get new coordinate
-                Move to = new Move(from, moveTo); // make new move
-                pawnMoves.add(to);
-
-            } else if (getColour().equals(PlayerColour.WHITE) && (from.getRow() == 6)) {
-
-                Coordinates moveTo = new Coordinates(from.getRow() + (2 * direction), from.getCol()); //get new coordinate
-                Move to = new Move(from, moveTo); // make new move
-                pawnMoves.add(to);
+        Coordinates infront1 = new Coordinates(from.getRow() + (direction), from.getCol());
+        if (board.get(infront1) == null) {
+            if (from.getRow() == startRow) {
+                checkAndAddMove(from, board, pawnMoves, direction * 2, 0);
             }
         }
 
+        Coordinates diagonalL = new Coordinates(from.getRow() + (direction), from.getCol() - 1);
+        Coordinates diagonalR = new Coordinates(from.getRow() + (direction), from.getCol() + 1);
+
         if (diagonalL.getCol() >= 0 && board.get(diagonalL) != null && !board.get(diagonalL).getColour().equals(getColour())) { // check if any pieces for the pawn to take and add move
-            Move to = new Move(from, diagonalL);
-            pawnMoves.add(to);
+            checkAndAddMove(from, board, pawnMoves, direction, -1);
         }
         if (diagonalR.getCol() <= 7 && board.get(diagonalR) != null && !board.get(diagonalR).getColour().equals(getColour())) {
-            Move to = new Move(from, diagonalR);
-            pawnMoves.add(to);
+            checkAndAddMove(from, board, pawnMoves, direction, 1);
         }
 
-        //add en passant
+        if (from.getRow() == endRow + (-3 * direction)){
+            Coordinates left = new Coordinates(from.getRow(), from.getCol() - 1);
+            Coordinates right = new Coordinates(from.getRow(), from.getCol() + 1);
+            Move check;
+
+            if (right.getCol() <= 7 && board.get(right) != null && !board.get(right).getColour().equals(getColour()) && board.get(right).getType().equals(PieceType.PAWN)){
+                check = board.getMostRecentMove();
+                if (check.getTo().getCol() == right.getCol() && check.getTo().getRow() == right.getRow()){
+                    checkAndAddMove(from, board, pawnMoves, direction, -direction);
+                }
+            }
+            if (left.getCol() >= 0 && board.get(left) != null && !board.get(left).getColour().equals(getColour()) && board.get(right).getType().equals(PieceType.PAWN)){
+                check = board.getMostRecentMove();
+                if (check.getTo().getCol() == right.getCol() && check.getTo().getRow() == right.getRow()){
+                    checkAndAddMove(from, board, pawnMoves, direction, -direction);
+                }
+            }
+
+
+
+        }
 
         //add promotion
 
 
         return pawnMoves;
+    }
+
+    public List<Move> addMove(List<Move> pawnMoves, Coordinates from, Coordinates currentCheckSquare) {//needs move too (from, to)
+        Move to = new Move(from, currentCheckSquare);
+        pawnMoves.add(to);
+
+        return pawnMoves;
+    }
+
+    public Boolean checkSquareIsAvailable(Board board, Coordinates checkSquare, int colDiff) {
+        if (checkSquare.getCol() >= 0 && checkSquare.getRow() >= 0 && checkSquare.getCol() <= 7 && checkSquare.getRow() <= 7) { //check square is on board
+            return board.get(checkSquare) != null && !board.get(checkSquare).getColour().equals(getColour()) && colDiff != 0|| board.get(checkSquare) == null; //check square is empty or has enemy piece
+        }
+        else return false;
+    }
+
+    public void checkAndAddMove(Coordinates from, Board board, List pawnMoves, int rowDiff, int colDiff) {
+        Coordinates checkSquare = (from);
+
+        checkSquare = checkSquare.plus(rowDiff, colDiff);
+        if (checkSquareIsAvailable(board, checkSquare, colDiff)) {
+            addMove(pawnMoves, from, checkSquare);
+        }
+
+    }
+
+    public void pawnPromotion(Board board, List pawnMoves) {
+
     }
 
 

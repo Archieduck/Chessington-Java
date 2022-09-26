@@ -17,13 +17,14 @@ public class Rook extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> rookMoves = new ArrayList<Move>();
 
+        int rowDirection = 1;
+        int colDirection = 1;
+        Coordinates checkSquare = new Coordinates(from.getRow(), from.getCol());
 
-
-
-
-
-
-
+        checkAndAddMove(from, board, rookMoves, 1, 0);
+        checkAndAddMove(from, board, rookMoves, -1, 0);
+        checkAndAddMove(from, board, rookMoves, 0, 1);
+        checkAndAddMove(from, board, rookMoves, 0, -1);
 
         return rookMoves;
     }
@@ -37,9 +38,26 @@ public class Rook extends AbstractPiece {
         return rookMoves;
     }
 
-//    public Boolean checkSquareIsAvailable(Board board, Coordinates currentCheckSquare) {
-//
-//        return board.get(currentCheckSquare) != null && !board.get(currentCheckSquare).getColour().equals(getColour()) || board.get(currentCheckSquare) == null;
-//    }
+    public Boolean checkSquareIsAvailable(Board board, Coordinates checkSquare) {
+        if (checkSquare.getCol() >= 0 && checkSquare.getRow() >= 0 && checkSquare.getCol() <= 7 && checkSquare.getRow() <= 7) { //check square is on board
+            return board.get(checkSquare) != null && !board.get(checkSquare).getColour().equals(getColour()) || board.get(checkSquare) == null; //check square is empty or has enemy piece
+        }
+        else return false;
+    }
+
+    public void checkAndAddMove(Coordinates from, Board board, List rookMoves, int rowDiff, int colDiff) {
+        Coordinates checkSquare = (from);
+        do {
+            checkSquare = checkSquare.plus(rowDiff, colDiff);
+            if (checkSquareIsAvailable(board, checkSquare)) {
+                addMove(rookMoves, from, checkSquare);
+                if (board.get(checkSquare) != null && !board.get(checkSquare).getColour().equals(getColour())){ //if opposite coloured piece
+                    break;
+                }
+            } else {
+                break;
+            }
+        } while (checkSquareIsAvailable(board, checkSquare));
+    }
 }
 
